@@ -4,7 +4,7 @@ from cyber.security import send_mail
 def open_camera():
     cam = cv2.VideoCapture(0)
     threat = 0
-    while cam.isOpened():
+    while cam.isOpened(): 
         threat += 20
         ret , frame1 = cam.read()
         ret , frame2 = cam.read()
@@ -22,14 +22,15 @@ def open_camera():
             cv2.rectangle(frame1,(x,y),(x+w,y+h),(0,255,0),3)
             print('intruder!!!')
             mixer.init() 
-            sound=mixer.Sound("siren.wav")
+            sound=mixer.Sound("bark.wav")
             sound.play()
-            sound.stop()
+            # sound.stop()
         if cv2.waitKey(10) == ord('q'):
             break
         cv2.imshow('i am watching you <(-,-)>', frame1)
         if threat > 1000:
             send_mail()
+            break
             threat = 0
             
 
